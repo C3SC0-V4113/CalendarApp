@@ -7,7 +7,7 @@ import { LoginPage } from "../auth/pages/LoginPage";
 import { CalendarPage } from "../calendar/pages";
 
 export const AppRouter = () => {
-  const authStatus = "not-authenticated";
+  const authStatus = "authenticated";
 
   const router = createBrowserRouter(
     authStatus === "not-authenticated"

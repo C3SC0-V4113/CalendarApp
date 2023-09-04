@@ -1,4 +1,4 @@
-import { Navbar } from "../components/Navbar";
+import { CalendarEvent, Navbar } from "../components";
 import { localizer, getMessagesES } from "../../helpers";
 
 import { Calendar } from "react-big-calendar";
@@ -21,7 +21,7 @@ const events = [
 
 export const CalendarPage = () => {
   const eventStyleGetter = (event, start, end, isSelected) => {
-    console.log({ event, start, end, isSelected });
+    // console.log({ event, start, end, isSelected });
 
     const style = {
       backgroundColor: "#347CF7",
@@ -47,6 +47,9 @@ export const CalendarPage = () => {
         style={{ height: "calc( 100vh - 80px)" }}
         messages={getMessagesES()}
         eventPropGetter={eventStyleGetter}
+        components={{
+          event: CalendarEvent,
+        }}
       />
     </>
   );

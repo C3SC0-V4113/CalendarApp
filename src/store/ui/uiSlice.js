@@ -15,6 +15,6 @@ export const uiSlice = createSlice({
   },
 });
 // Action creators are generated for each case reducer function
-export const { openModal } = uiSlice.actions;
+export const { onOpenDateModal, onCloseDateModal } = uiSlice.actions;
 
 // export default uiSlice.reducer;

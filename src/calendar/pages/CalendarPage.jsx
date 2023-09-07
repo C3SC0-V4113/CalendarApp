@@ -7,6 +7,8 @@ import { Calendar } from "react-big-calendar";
 import { addHours } from "date-fns";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
+import { useUiStore } from "../../hooks";
+
 const events = [
   {
     title: "Cumpleaños de Karla",
@@ -22,6 +24,7 @@ const events = [
 ];
 
 export const CalendarPage = () => {
+  const { openDateModal } = useUiStore();
   const [lastView, setLastView] = useState(
     localStorage.getItem("lastView") || "week"
   );
@@ -42,6 +45,7 @@ export const CalendarPage = () => {
 
   const onDoubleClick = (event) => {
     console.log({ doubleCkick: event });
+    openDateModal();
   };
 
   const onSelect = (event) => {

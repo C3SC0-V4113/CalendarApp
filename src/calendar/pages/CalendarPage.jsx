@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { CalendarEvent, CalendarModal, Navbar } from "../components";
+import { CalendarEvent, CalendarModal, FabAddNew, Navbar } from "../components";
 import { localizer, getMessagesES } from "../../helpers";
 
 import { Calendar } from "react-big-calendar";
@@ -65,6 +65,7 @@ export const CalendarPage = () => {
         onView={onViewChanged}
       />
       <CalendarModal />
+      <FabAddNew />
     </>
   );
 };

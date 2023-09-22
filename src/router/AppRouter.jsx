@@ -5,9 +5,12 @@ import {
 } from "react-router-dom";
 import { LoginPage } from "../auth/pages/LoginPage";
 import { CalendarPage } from "../calendar/pages";
+import { getEnvVariables } from "../helpers";
 
 export const AppRouter = () => {
   const authStatus = "authenticated";
+
+  console.log(getEnvVariables());
 
   const router = createBrowserRouter(
     authStatus === "not-authenticated"

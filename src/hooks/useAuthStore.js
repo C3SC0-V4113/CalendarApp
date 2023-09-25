@@ -26,6 +26,26 @@ export const useAuthStore = () => {
     }
   };
 
+  /** startRegister */
+  const startRegister = async ({ name, email, password }) => {
+    dispatch(onChecking());
+    try {
+      const { data } = await caledarApi.post("/auth/new", {
+        name,
+        email,
+        password,
+      });
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("token-init-date", new Date().getTime());
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      dispatch(onLogout(error));
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
   return {
     /** Propiedades */
     status,
@@ -33,5 +53,6 @@ export const useAuthStore = () => {
     errorMessage,
     /** Metodos */
     startLogin,
+    startRegister,
   };
 };

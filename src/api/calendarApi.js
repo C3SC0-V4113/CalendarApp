@@ -8,5 +8,13 @@ const caledarApi = axios.create({
 });
 
 /** TODO: Configurar interceptores */
+caledarApi.interceptors.request.use((config) => {
+  config.headers = {
+    ...config.headers,
+    "x-token": localStorage.getItem("token"),
+  };
+
+  return config;
+});
 
 export default caledarApi;

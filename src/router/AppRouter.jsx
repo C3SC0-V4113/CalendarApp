@@ -31,6 +31,10 @@ export const AppRouter = () => {
             path: "/auth/*",
             element: <LoginPage />,
           },
+          {
+            path: "/*",
+            element: <Navigate to={"/auth/*"} />,
+          },
         ]
       : [
           {
@@ -39,7 +43,7 @@ export const AppRouter = () => {
           },
           {
             path: "/*",
-            element: <Navigate to={"/auth/*"} />,
+            element: <Navigate to={"/"} />,
           },
         ]
   );

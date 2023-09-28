@@ -5,7 +5,8 @@ import {
   onChecking,
   onLogin,
   onLogout,
-} from "../store/auth";
+  onLogoutCalendar,
+} from "../store";
 
 export const useAuthStore = () => {
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ export const useAuthStore = () => {
   const startLogout = async () => {
     localStorage.clear();
     dispatch(onLogout());
+    dispatch(onLogoutCalendar());
   };
 
   return {

@@ -47,9 +47,15 @@ export const useCalendarStore = () => {
     }
   };
 
-  const startDeletingEvent = () => {
+  const startDeletingEvent = async () => {
     /** TODO: LLegar al Backend */
-    dispatch(onDeleteEvent());
+    try {
+      await caledarApi.delete(`/events/${activeEvent.id}`);
+      dispatch(onDeleteEvent());
+    } catch (error) {
+      console.log(error);
+      Swal.fire("Error al eliminar", error.response.data.msg, "error");
+    }
   };
 
   const startLoadingEvents = async () => {

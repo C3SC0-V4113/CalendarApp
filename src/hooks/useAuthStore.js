@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import caledarApi from "../api/calendarApi";
+import calendarApi from "../api/calendarApi";
 import {
   clearErrorMessage,
   onChecking,
@@ -15,7 +15,7 @@ export const useAuthStore = () => {
   const startLogin = async ({ email, password }) => {
     dispatch(onChecking());
     try {
-      const { data } = await caledarApi.post("/auth", { email, password });
+      const { data } = await calendarApi.post("/auth", { email, password });
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
       dispatch(onLogin({ name: data.name, uid: data.uid }));
@@ -31,7 +31,7 @@ export const useAuthStore = () => {
   const startRegister = async ({ name, email, password }) => {
     dispatch(onChecking());
     try {
-      const { data } = await caledarApi.post("/auth/new", {
+      const { data } = await calendarApi.post("/auth/new", {
         name,
         email,
         password,
@@ -51,7 +51,7 @@ export const useAuthStore = () => {
     const token = localStorage.getItem("token");
     if (!token) return dispatch(onLogout());
     try {
-      const { data } = await caledarApi.get("/auth/renew");
+      const { data } = await calendarApi.get("/auth/renew");
       localStorage.setItem("token", data.token);
       localStorage.setItem("token-init-date", new Date().getTime());
       dispatch(onLogin({ name: data.name, uid: data.uid }));

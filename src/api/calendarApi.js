@@ -3,12 +3,12 @@ import { getEnvVariables } from "../helpers";
 
 const { VITE_API_URL } = getEnvVariables();
 
-const caledarApi = axios.create({
+const calendarApi = axios.create({
   baseURL: VITE_API_URL,
 });
 
 /** TODO: Configurar interceptores */
-caledarApi.interceptors.request.use((config) => {
+calendarApi.interceptors.request.use((config) => {
   config.headers = {
     ...config.headers,
     "x-token": localStorage.getItem("token"),
@@ -17,4 +17,4 @@ caledarApi.interceptors.request.use((config) => {
   return config;
 });
 
-export default caledarApi;
+export default calendarApi;

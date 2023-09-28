@@ -6,7 +6,7 @@ import {
   onSetActive,
   onUpdateEvent,
 } from "../store";
-import caledarApi from "../api/calendarApi";
+import calendarApi from "../api/calendarApi";
 import { convertEventsToDateEvents } from "../helpers";
 import Swal from "sweetalert2";
 
@@ -26,7 +26,7 @@ export const useCalendarStore = () => {
       /**Todo Bien */
       if (calendarEvent.id) {
         // Actualizando
-        await caledarApi.put(`/events/${calendarEvent.id}`, calendarEvent);
+        await calendarApi.put(`/events/${calendarEvent.id}`, calendarEvent);
 
         dispatch(
           onUpdateEvent({
@@ -38,7 +38,7 @@ export const useCalendarStore = () => {
         return;
       }
       // Creando
-      const { data } = await caledarApi.post("/events", calendarEvent);
+      const { data } = await calendarApi.post("/events", calendarEvent);
 
       dispatch(onAddNewEvent({ ...calendarEvent, id: data.evento.id, user }));
     } catch (error) {
@@ -50,7 +50,7 @@ export const useCalendarStore = () => {
   const startDeletingEvent = async () => {
     /** TODO: LLegar al Backend */
     try {
-      await caledarApi.delete(`/events/${activeEvent.id}`);
+      await calendarApi.delete(`/events/${activeEvent.id}`);
       dispatch(onDeleteEvent());
     } catch (error) {
       console.log(error);
@@ -60,7 +60,7 @@ export const useCalendarStore = () => {
 
   const startLoadingEvents = async () => {
     try {
-      const { data } = await caledarApi.get("/events");
+      const { data } = await calendarApi.get("/events");
       const events = convertEventsToDateEvents(data.eventos);
       dispatch(onLoadEvents(events));
       // console.log(events);

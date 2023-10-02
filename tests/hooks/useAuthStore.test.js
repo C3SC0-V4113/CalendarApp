@@ -4,6 +4,7 @@ import { renderHook } from "@testing-library/react";
 
 import { useAuthStore } from "../../src/hooks";
 import { authSlice } from "../../src/store";
+import { initialState } from "../fixtures/authStates";
 
 const getMockStore = (initialState) => {
   return configureStore({
@@ -18,11 +19,7 @@ const getMockStore = (initialState) => {
 
 describe("pruebas en useAuthStore", () => {
   test("debe de regresar los valores por defecto", () => {
-    const mockStore = getMockStore({
-      status: "checking", // authenticated, not-authenticated, checking
-      user: {},
-      errorMessage: undefined,
-    });
+    const mockStore = getMockStore({ ...initialState });
 
     const { result } = renderHook(() => useAuthStore(), {
       wrapper: ({ children }) => (

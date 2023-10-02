@@ -1,8 +1,9 @@
-import { renderHook } from "@testing-library/react";
-import { useUiStore } from "../../src/hooks/useUiStore";
 import { Provider } from "react-redux";
-import { uiSlice } from "../../src/store";
+import { act, renderHook } from "@testing-library/react";
 import { configureStore } from "@reduxjs/toolkit";
+
+import { useUiStore } from "../../src/hooks";
+import { uiSlice } from "../../src/store";
 
 const getMockStore = (initialState) => {
   return configureStore({
@@ -30,5 +31,24 @@ describe("pruebas en useUiStore.js", () => {
       openDateModal: expect.any(Function),
       closeDateModal: expect.any(Function),
     });
+  });
+
+  test("openDateModal debe colocar true en el isDateModalOpen", () => {
+    const mockStore = getMockStore({
+      isDateModalOpen: false,
+    });
+    const { result } = renderHook(() => useUiStore(), {
+      wrapper: ({ children }) => (
+        <Provider store={mockStore}>{children}</Provider>
+      ),
+    });
+
+    const { openDateModal } = result.current;
+
+    act(() => {
+      openDateModal();
+    });
+
+    expect(result.current.isDateModalOpen).toBeTruthy();
   });
 });

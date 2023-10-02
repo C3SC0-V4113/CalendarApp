@@ -68,6 +68,10 @@ describe("pruebas en calendarSlice", () => {
       onDeleteEvent()
     );
 
+    expect(state.activeEvent).toBe(null);
+    expect(state.events).not.toContain(
+      calendarWithActiveEventState.activeEvent
+    );
     expect(state.events).toEqual(
       calendarWithActiveEventState.events.filter(
         (event) => event.id !== calendarWithActiveEventState.activeEvent.id
@@ -78,11 +82,11 @@ describe("pruebas en calendarSlice", () => {
   test("onLoadEvents debe de establecer los eventos", () => {
     const state = calendarSlice.reducer(initialState, onLoadEvents(events));
 
+    expect(state.isLoadingEvents).toBeFalsy();
     expect(state.events).toEqual(events);
   });
 
   test("onLogoutCalendar debe de limpiar el estado", () => {
-    // calendarWithActiveEventState
     const state = calendarSlice.reducer(
       calendarWithActiveEventState,
       onLogoutCalendar()

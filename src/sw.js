@@ -32,15 +32,13 @@ self.addEventListener("install", async (event) => {
   ]);
 });
 
-/** http://localhost:4000/api/events */
+const apiOfflineFallbacks = [
+  "http://localhost:4000/api/auth/renew",
+  "http://localhost:4000/api/events",
+];
 
 self.addEventListener("fetch", (event) => {
-  /** http://localhost:4000/api/auth/renew */
-  if (
-    event.request.url !== "http://localhost:4000/api/auth/renew" &&
-    event.request.url !== "http://localhost:4000/api/events"
-  )
-    return;
+  if (!apiOfflineFallbacks.includes(event.request.url)) return;
 
   const resp = fetch(event.request)
     .then((response) => {

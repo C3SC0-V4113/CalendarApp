@@ -32,11 +32,22 @@ self.addEventListener("install", async (event) => {
   ]);
 });
 
+/** http://localhost:4000/api/events */
+
 self.addEventListener("fetch", (event) => {
-  if (event.request.url !== "http://localhost:4000/api/auth/renew") return;
+  /** http://localhost:4000/api/auth/renew */
+  if (
+    event.request.url !== "http://localhost:4000/api/auth/renew" &&
+    event.request.url !== "http://localhost:4000/api/events"
+  )
+    return;
 
   const resp = fetch(event.request)
     .then((response) => {
+      if (!response) {
+        return caches.match(event.request);
+      }
+
       /** Guardar respuesta en cache */
       caches.open("cache-dynamic").then((cache) => {
         cache.put(event.request, response);

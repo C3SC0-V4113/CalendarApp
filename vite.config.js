@@ -14,7 +14,9 @@ export default defineConfig({
         navigateFallback: "index.html",
         suppressWarnings: true,
       },
-      strategies: "generateSW",
+      strategies: "injectManifest",
+      srcDir: "src",
+      filename: "sw-template.js",
     }),
   ],
 });

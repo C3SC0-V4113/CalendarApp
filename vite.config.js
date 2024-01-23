@@ -8,12 +8,12 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      devOptions: {
-        enabled: true,
-        type: "module",
-        navigateFallback: "index.html",
-        suppressWarnings: true,
-      },
+      // devOptions: {
+      //   enabled: true,
+      //   type: "module",
+      //   navigateFallback: "index.html",
+      //   suppressWarnings: true,
+      // },
       strategies: "injectManifest",
       srcDir: "src",
       filename: "sw-template.js",

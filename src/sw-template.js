@@ -2,6 +2,8 @@ importScripts(
   "https://storage.googleapis.com/workbox-cdn/releases/6.4.1/workbox-sw.js"
 );
 
+workbox.loadModule("workbox-background-sync");
+
 workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
 
 workbox.routing.registerRoute(
@@ -28,4 +30,21 @@ workbox.routing.registerRoute(
 workbox.routing.registerRoute(
   new RegExp("http://localhost:4000/api/auth/renew"),
   new workbox.strategies.NetworkFirst()
+);
+
+/** Offline Post */
+
+const bgSyncPlugin = new workbox.backgroundSync.BackgroundSyncPlugin(
+  "offlinePosts",
+  {
+    maxRetentionTime: 24 * 60,
+  }
+);
+
+workbox.routing.registerRoute(
+  new RegExp("http://localhost:4000/api/events"),
+  new workbox.strategies.NetworkOnly({
+    plugins: [bgSyncPlugin],
+  }),
+  "POST"
 );

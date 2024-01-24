@@ -35,7 +35,7 @@ workbox.routing.registerRoute(
 /** Offline Post */
 
 const bgSyncPlugin = new workbox.backgroundSync.BackgroundSyncPlugin(
-  "offlinePosts",
+  "offlineQueue",
   {
     maxRetentionTime: 24 * 60,
   }
@@ -47,4 +47,22 @@ workbox.routing.registerRoute(
     plugins: [bgSyncPlugin],
   }),
   "POST"
+);
+
+/** Offline Put */
+workbox.routing.registerRoute(
+  new RegExp("http://localhost:4000/api/events/"),
+  new workbox.strategies.NetworkOnly({
+    plugins: [bgSyncPlugin],
+  }),
+  "PUT"
+);
+
+/** Offline Delete */
+workbox.routing.registerRoute(
+  new RegExp("http://localhost:4000/api/events/"),
+  new workbox.strategies.NetworkOnly({
+    plugins: [bgSyncPlugin],
+  }),
+  "DELETE"
 );
